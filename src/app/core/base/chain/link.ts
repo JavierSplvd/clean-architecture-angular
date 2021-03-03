@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 import { UseCase } from "../use-case";
 
 /**
@@ -7,5 +8,5 @@ import { UseCase } from "../use-case";
 export interface Link {
     setNext(handler: Link): Link;
 
-    handle<T, S>(useCase: UseCase<T, S>): UseCase<T, S>;
+    handle<S, T>(useCase: UseCase<S, T>, params: S): Observable<T>;
 }

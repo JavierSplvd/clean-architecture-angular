@@ -1,19 +1,20 @@
+import { Observable } from "rxjs";
 import { UseCase } from "../use-case";
 import { Link } from "./link";
 
 export abstract class AbstractLink implements Link
 {
-    private nextHandler: Link
+    protected nextHandler?: Link = null
 
     public setNext(handler: Link): Link {
         this.nextHandler = handler;
         return handler;
     }
 
-    handle<T, S>(useCase: UseCase<T, S>): UseCase<T, S> {
+    handle<S, T>(useCase: UseCase<S, T>, params: S): Observable<T> {
         if (this.nextHandler) {
-            return this.nextHandler.handle(useCase);
+            return this.nextHandler.handle(useCase, params);
         }
-        return useCase;
+        return useCase.internalExecute(params);
     }
 }
