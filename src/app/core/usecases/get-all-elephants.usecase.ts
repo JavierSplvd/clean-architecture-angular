@@ -7,11 +7,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GetAllElephantsUsecase implements UseCase<void, ElephantModel> {
+export class GetAllElephantsUsecase extends UseCase<void, ElephantModel> {
+  id = 'GetAllElephantsUsecase'
+  
+  constructor(private elephantRepository: ElephantRepository) { 
+    super()
+  }
 
-  constructor(private elephantRepository: ElephantRepository) { }
-
-  execute(params: void): Observable<ElephantModel> {
+  internalExecute(params: void): Observable<ElephantModel> {
     return this.elephantRepository.getAllElephants();
   }
 }

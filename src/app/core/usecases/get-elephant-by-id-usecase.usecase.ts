@@ -7,11 +7,14 @@ import { ElephantRepository } from '../repositories/elephant.repository';
 @Injectable({
   providedIn: 'root'
 })
-export class GetElephantByIdUsecase implements UseCase<number, ElephantModel> {
+export class GetElephantByIdUsecase extends UseCase<number, ElephantModel> {
+  id = 'GetElephantByIdUsecase'
 
-  constructor(private elephantRepository: ElephantRepository) { }
+  constructor(private elephantRepository: ElephantRepository) {
+    super()
+  }
 
-  execute(params: number): Observable<ElephantModel> {
+  internalExecute(params: number): Observable<ElephantModel> {
     return this.elephantRepository.getElephantById(params);
   }
 }
