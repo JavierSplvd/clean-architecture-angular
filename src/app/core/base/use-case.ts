@@ -4,6 +4,7 @@ import { Executor } from './chain/executor';
 
 export abstract class UseCase<S, T> {
   id: string
+  cacheable = false
 
   public execute(params: S): Observable<T> {
     return Executor.run(this, params)

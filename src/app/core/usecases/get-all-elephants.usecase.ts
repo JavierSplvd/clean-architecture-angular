@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class GetAllElephantsUsecase extends UseCase<void, ElephantModel> {
   id = 'GetAllElephantsUsecase'
+  cacheable = true
   
   constructor(private elephantRepository: ElephantRepository) { 
     super()
