@@ -9,7 +9,7 @@ export class CacheLink extends AbstractLink {
 
     public handle<S, T>(useCase: UseCase<S, T>, params: S): Observable<T> {
         const key = useCase.id + JSON.stringify(params)
-        console.log(CacheLink.onMemoryCache)
+
         if(!useCase.cacheable && this.nextHandler !== null) {
             return this.nextHandler.handle(useCase, params)
         } else if(!useCase.cacheable && this.nextHandler === null) {
@@ -22,7 +22,6 @@ export class CacheLink extends AbstractLink {
         } else {
             return useCase.internalExecute(params).pipe(tap(result => {
                 CacheLink.onMemoryCache.set(key, result)
-                console.log(result)
             }))
         }
     }
